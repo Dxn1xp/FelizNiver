@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aniversário da Julya</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('./img/foto5.jpg');
+            /* Imagem de fundo */
+            background-size: cover;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+            color: white;
+            overflow: hidden;
+            /* Evita que elementos saiam da tela */
+            background-repeat: no-repeat;
+        }
+
+        h1 {
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .modal {
+            display: none;
+            /* Modal inicia oculto */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.2);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background-color: rgba(225, 70, 255, 0.9);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .fireworks {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            max-width: 80%;
+            /* Ajusta a largura para ser responsiva */
+        }
+
+        .button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            background-color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            color: rgb(0, 0, 0);
+            transition: background-color 0.3s;
+        }
+
+        .button:hover {
+            background-color: #ff00ff;
+        }
+
+                .heart {
+            position: absolute;
+            top: -50px;
+            width: 30px;
+            height: 30px;
+            background-image: url('./img/coracao.png'); /* Substitua pelo caminho da sua imagem */
+            background-size: cover;
+            animation: fall linear infinite;
+        }
+        @keyframes fall {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(100vh);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Feliz Aniversário, Julya!</h1>
+
+    <button class="button" onclick="startAnimation()">Abrir Mensagem</button>
+
+    <div class="modal" id="myModal">
+        <div class="modal-content">
+            <img id="modalImage" src="./img/foto (4).jpg" alt="Bailarina" style="width: 100%; border-radius: 10px;">
+            <p id="modalText"></p>
+            <img class="fireworks" id="fogosImg" src="./img/fogos.gif" alt="Fogos de Artifício">
+            <button class="button" onclick="showNextMessage()">Próxima Mensagem</button>
+        </div>
+    </div>
+
+    <script>
+        let currentImageIndex = 0;
+        const images = [
+            './img/foto (4).jpg',
+            './img/foto (2).jpg',
+            './img/foto (3).jpg',
+            './img/foto (1).jpg'
+        ];
+
+        const texts = [
+            "Parabéns por ser uma bailarina incrível!",
+            "Que seu dia seja repleto de alegrias!",
+            "Desejo muito sucesso e felicidade!",
+            "Tome cuidado em sua viagem"
+        ];
+
+        function startAnimation() {
+            showModal();
+            showNextMessage();
+            showFireworks();
+            createHearts();
+        }
+
+        function showModal() {
+            document.getElementById('myModal').style.display = 'flex';
+        }
+
+        function showNextMessage() {
+            const modalImage = document.getElementById('modalImage');
+            const modalText = document.getElementById('modalText');
+
+            modalImage.src = images[currentImageIndex];
+            modalText.textContent = texts[currentImageIndex];
+
+            currentImageIndex = (currentImageIndex + 1) % images.length;
+
+            showFireworks(); // Mostra os fogos ao trocar de mensagem
+        }
+
+        function showFireworks() {
+            const fireworks = document.getElementById('fogosImg');
+            fireworks.style.display = 'block';
+            setTimeout(() => {
+                fireworks.style.display = 'none';
+            }, 6000); // Mostra os fogos por 2 segundos
+        }
+
+        function createHearts() {
+            const interval = setInterval(() => {
+                createHeart();
+            }, 100);
+        }
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 2 + 3 + 's';
+            document.body.appendChild(heart);
+
+            heart.addEventListener('animationend', () => {
+                heart.remove();
+            });
+        }
+    </script>
+</body>
+
+</html>
