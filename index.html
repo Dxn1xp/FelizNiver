@@ -72,24 +72,6 @@
         .button:hover {
             background-color: #ff00ff;
         }
-
-                .heart {
-            position: absolute;
-            top: -50px;
-            width: 30px;
-            height: 30px;
-            background-image: url('./img/coracao.png'); /* Substitua pelo caminho da sua imagem */
-            background-size: cover;
-            animation: fall linear infinite;
-        }
-        @keyframes fall {
-            0% {
-                transform: translateY(0);
-            }
-            100% {
-                transform: translateY(100vh);
-            }
-        }
     </style>
 </head>
 
@@ -127,7 +109,6 @@
             showModal();
             showNextMessage();
             showFireworks();
-            createHearts();
         }
 
         function showModal() {
@@ -152,24 +133,6 @@
             setTimeout(() => {
                 fireworks.style.display = 'none';
             }, 6000); // Mostra os fogos por 2 segundos
-        }
-
-        function createHearts() {
-            const interval = setInterval(() => {
-                createHeart();
-            }, 100);
-        }
-
-        function createHeart() {
-            const heart = document.createElement('div');
-            heart.className = 'heart';
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDuration = Math.random() * 2 + 3 + 's';
-            document.body.appendChild(heart);
-
-            heart.addEventListener('animationend', () => {
-                heart.remove();
-            });
         }
     </script>
 </body>
